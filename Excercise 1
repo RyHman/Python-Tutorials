@@ -1,0 +1,14 @@
+'''https://www.practicepython.org/exercise/2014/01/29/01-character-input.html'''
+
+import datetime as dtime
+
+user_name = input('Please enter your name:')
+user_age = int(input('Please enter your current age in years:'))
+
+today = dtime.date.today()
+current_year = (today.year)
+year_100 = current_year + 100 - int(user_age)
+# morbid_message = 'Well, {}, in {} you\'ll be 100 years old!.format(user_name, year_100)
+morbid_message = f'Well, {user_name}, in {year_100} you\'ll be 100 years old.  Just a heads up!'
+
+print(morbid_message)
