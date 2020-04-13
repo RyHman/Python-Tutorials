@@ -1,0 +1,9 @@
+'''http://www.practicepython.org/exercise/2014/02/15/03-list-less-than-ten.html'''
+
+og_list = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+new_list = []
+
+for number in og_list:
+	if number < 5:
+		new_list.append(number)
+print(new_list)
