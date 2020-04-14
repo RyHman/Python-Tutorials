@@ -1,0 +1,22 @@
+'''http://www.practicepython.org/exercise/2014/11/11/20-element-search.html'''
+
+a = [1, 5, 7, 8, 9, 11, 14, 27, 67, 88, 91, 100, 110, 200, 344, 967, 1001]
+yay = 'This number is in fact on my list.'
+nay = 'This number is not on my list.'
+
+'''Boolean Check'''
+
+
+
+def numb_check(my_list, number):
+	if number < my_list[0] or number > my_list[-1]:
+		return True
+	elif number in my_list:
+		return True
+	else:
+		return False
+    
+    
+ '''Binary Check'''
+ 
+ #pending
