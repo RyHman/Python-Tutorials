@@ -1,0 +1,31 @@
+'''http://www.practicepython.org/exercise/2014/03/26/08-rock-paper-scissors.html'''
+
+# Messages:
+play_again = 'Would you like to play again? Enter \'yes\' or \'no\'.\n'
+draw = 'This round ended as a draw'
+p1_win = 'Player 1 Wins!'
+p2_win = 'Player 2 Wins!'
+
+#win, loss
+rock_list = ['scissors', 'paper']
+scissors_list = ['paper', 'rock']
+paper_list = ['rock', 'scissors']
+
+def win_condition(lists):
+	p1_input = input('Player 1, please enter: rock, paper, or scissors\n')
+	p2_input = input('Player 2, please enter: rock, paper, or scissors\n')
+	game = [p1_input, p2_input]
+	if p1_input == p2_input:
+		print(draw)
+	elif game in lists:
+		print(p1_win)
+	else:
+		print(p2_win)
+
+while True:
+	user_quit = input('Press \'Enter\' to continue, or type \'quit\' to quit.\n')
+	if user_quit == 'quit':
+		break
+	else:
+		win_condition([rock_list, paper_list, scissors_list])
+		print(play_again)
