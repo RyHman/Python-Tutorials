@@ -1,0 +1,25 @@
+'''http://www.practicepython.org/exercise/2014/11/30/21-write-to-a-file.html'''
+
+import requests
+from bs4 import BeautifulSoup
+
+url1 = "https://www.iflscience.com/editors-blog/ridiculous-facts-that-didnt-make-it-into-netflixs-tiger-king-documentary-/"
+url2 = "https://www.iflscience.com/editors-blog/ridiculous-facts-that-didnt-make-it-into-netflixs-tiger-king-documentary-/page-2"
+
+
+def get_text(url):
+	r = requests.get(url).text
+	soup = BeautifulSoup(r, features='lxml')
+	headline = soup.find('h1', class_='title')
+	title = headline.text
+	article = soup.find('div', class_='article-content')
+	article_all_p = article.findAll('p')
+
+	with open('21 - 8 Tiger King Facts.txt', 'a') as print_to_txt:
+		print_to_txt.write(title + '\n')
+
+		for pgraphs in article_all_p[0:]:
+			print_to_txt.write('\n' + pgraphs.text + '\n')
+
+get_text(url1)
+get_text(url2)
