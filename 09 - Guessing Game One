@@ -1,0 +1,31 @@
+'''http://www.practicepython.org/exercise/2014/04/02/09-guessing-game-one.html'''
+
+
+import random
+
+a = random.randint(1,10)
+
+#Messages:
+guess_again = 'Incorrect.  Guess again.\n'
+correct = 'Correct!  Nice guess!\n'
+too_high = 'A little high, try again.\n'
+too_low = 'A little low, try again.\n'
+guess_count = []
+
+u_guess = int(input('Guess a number between 1 and 10.\n'))
+guess_count.append(1)
+
+while u_guess != 'quit':
+	while u_guess != a:
+		print(guess_again)
+		u_guess = int(input('Guess a number between 1 and 10.\n'))
+		guess_count.append(1)
+		if u_guess < a:
+			print(too_low)
+		elif u_guess > a:
+			print(too_high)
+		if u_guess == a:
+			print(correct)
+			print(str(len(guess_count)) + ' guesses')
+	if u_guess == 'quit':
+		break
