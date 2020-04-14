@@ -1,0 +1,13 @@
+'''http://www.practicepython.org/exercise/2014/03/12/06-string-lists.html'''
+
+user_word = input('Please enter the word that you would like to test:')
+
+string_list = list(user_word)
+reverse_list = list(user_word)
+reverse_list.reverse()
+
+def palindrome_check():
+	if (string_list == reverse_list):
+		print('This word appears to be a palindrome.')
+	else:
+		print('This word is not a palindrome.')
