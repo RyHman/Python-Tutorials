@@ -1,0 +1,16 @@
+'''http://www.practicepython.org/exercise/2014/02/26/04-divisors.html'''
+
+user_num = int(input('Please enter the number who\'s divisors you would like to see:'))
+divisor_range = range(1, user_num + 1)
+divisors = []
+
+for x in divisor_range:
+	if user_num % x ==0:
+		divisors.append(x)
+
+for x in divisors:
+	if divisors == [1, x]:
+		print('This number is prime!')
+	else:
+		print('Your number was not a prime number, here are the divisors' + divisors)
+print(divisors)
