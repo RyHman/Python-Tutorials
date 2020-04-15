@@ -1,0 +1,14 @@
+'''http://www.practicepython.org/exercise/2014/05/21/15-reverse-word-order.html'''
+
+user_string = input('Type in the sentence that you want to be reversed:\n')
+
+'''Test String'''
+# user_string = 'How do people believe that the earth is flat?'
+
+def sentence_reverser(string):
+	word_string = user_string.split()
+	word_string.reverse()
+	reverse_sentence = ' '.join(word_string)
+	print(reverse_sentence)
+
+sentence_reverser(user_string)
