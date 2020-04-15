@@ -1,0 +1,14 @@
+'''http://www.practicepython.org/exercise/2014/04/16/11-check-primality-functions.html'''
+
+user_num = int(input('Please enter a number to test whether it is prime or not:\n'))
+divisor_range = range(1, user_num + 1)
+divisors = []
+
+for x in divisor_range:
+	if user_num % x ==0:
+		divisors.append(x)
+if divisors == [1, user_num]:
+	print('This number is prime!')
+else:
+	print('Your number was not a prime number, it is divisible by the following numbers:\n')
+	print(str(divisors))
