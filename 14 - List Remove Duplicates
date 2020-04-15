@@ -1,0 +1,9 @@
+'''http://www.practicepython.org/exercise/2014/05/15/14-list-remove-duplicates.html'''
+
+amy_list = ['apricot', 'necatarine', 'peach', 'apple', 'orange', 'peach']
+
+def rem_dupes(user_list):
+	no_dupes = list(set(user_list))
+	print(no_dupes)
+
+rem_dupes(amy_list)
