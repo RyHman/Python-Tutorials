@@ -1,0 +1,18 @@
+'''http://www.practicepython.org/exercise/2014/04/30/13-fibonacci.html'''
+
+# fibonacci = x(n-2) + x(n-1)
+# [1, 1, 2, 3, 5, 8, 13, 21]
+
+user_input = int(input('How many Fibonacci numbers would you like to calculate?\n'))
+
+
+
+fibo_seq = [1,1]
+
+def fibonacci_sequence(list):
+	list.append(list[x] + list[x-1])
+
+for x in range(0, user_input):
+		fibonacci_sequence(fibo_seq)
+
+print(fibo_seq)
