@@ -1,0 +1,21 @@
+'''http://www.practicepython.org/exercise/2014/12/14/23-file-overlap.html'''
+
+prime_num = []
+happy_num = []
+
+
+with open('primenumbers.txt', 'r') as primes:
+ 	line_prime = primes.readline()
+ 	while line_prime:
+ 		prime_num.append(line_prime.strip())
+ 		line_prime = primes.readline()
+
+with open('happynumbers.txt', 'r') as happys:
+ 	line_happy = happys.readline()
+ 	while line_happy:
+ 		happy_num.append(line_happy.strip())
+ 		line_happy = happys.readline()
+
+overlap_list = [x for x in prime_num if x in happy_num]
+
+print(overlap_list)
