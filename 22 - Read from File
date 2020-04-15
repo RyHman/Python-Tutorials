@@ -1,0 +1,47 @@
+'''http://www.practicepython.org/exercise/2014/12/06/22-read-from-file.html'''
+from collections import Counter
+
+init_unique_names = []
+names_dump = []
+
+'''Data Extraction'''
+with open('nameslist.txt', 'r') as open_file:
+	line = open_file.readline()
+	while line:
+		names_edit = line.replace('\n', '')
+		names_dump.append(names_edit)
+		for new_name in names_dump:
+			if new_name in names_dump:
+				if new_name not in init_unique_names:
+					init_unique_names.append(new_name)
+		line = open_file.readline()
+
+
+
+'''Rudimentary Solution'''
+
+for x in init_unique_names:
+	print(x + ':' + str(names_dump.count(x)))
+
+
+'''Rudimentary Dictionary Creation'''
+
+
+names_count = []
+
+for x in init_unique_names:
+	name_count = names_dump.count(x)
+	names_count.append(name_count)
+
+names_dict = {x:y for x in init_unique_names for y in names_count}
+
+print(names_dict)
+
+
+
+
+'''Using a module'''
+
+filter_list = set(names_dump)
+name_count = Counter(names_dump)
+print(name_count)
