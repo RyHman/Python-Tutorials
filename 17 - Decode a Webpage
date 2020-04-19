@@ -1,0 +1,17 @@
+'''http://www.practicepython.org/exercise/2014/06/06/17-decode-a-web-page.html'''
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://www.nytimes.com/"
+w_site = requests.get(url).text
+
+soup = BeautifulSoup(w_site, features='lxml')
+
+for article in soup.find_all('h2'):
+	headline = article.text.replace('\n', ' ').strip()
+	print(headline)
+
+
+
+
