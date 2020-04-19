@@ -1,0 +1,100 @@
+'''http://www.practicepython.org/exercise/2014/07/05/18-cows-and-bulls.html'''
+
+
+import random
+
+
+'''===MESSAGES==='''
+intro_msg = 'Welcome to Cows and Bulls!\nPlease guess a number, and when one of your digits matches one of mine you\'ll get a cow\nand when one of your digits isn\'n matching, you\'ll get a bull!'
+guess_msg = 'Guess my favorite number, and I\'ll give you all of the cows in my pasture!\n'
+you_win = '4 Cows, you\'ve won the whole pasture!'
+guess_again_msg = 'Hmm... Not quite. Try again:\n'
+low_msg = 'Sorry mate, your guess is too low.  Try again, your guess has to be 4 digits.\n'
+high_msg = 'Sorry mate, your guess is a bit too high.  Try again, your guess has to be 4 digits.\n'
+
+def bull_cow_msg():
+
+	bull_count = bull_cow_list.count(0)
+
+	if bull_count == 1:
+		bull_pl = ''
+	else:
+		bull_pl ='s'
+
+	cow_count = bull_cow_list.count(1)
+
+	if cow_count == 1:
+		cow_pl = ''
+	else:
+		cow_pl = 's'
+	
+	print(f'{bull_count} bull{bull_pl} and {cow_count} cow{cow_pl}')
+
+def guess_again():
+	user_input = int(input(guess_again_msg))
+	return user_input
+
+
+
+'''===LOGIC==='''
+
+def bull_cow_list_gen(digits):
+	for x in range (0, digits):
+		if user_input_list[x] == target_int_list[x]:
+			bull_cow_list.append(1)
+		elif user_input_list[x] != target_int_list[x]:
+			bull_cow_list.append(0)
+	return bull_cow_list
+
+
+
+'''===GAME==='''
+
+print(intro_msg)
+user_input = 0
+target_int = random.randint(1000, 9999)
+guess_counter = 0
+
+
+while user_input != target_int and user_input != 'exit':
+	if guess_counter < 1:
+		user_input = int(input(guess_msg))
+		while user_input < 1000:
+			user_input = int(input(low_msg))
+			guess_counter += 1
+		while user_input > 9999:
+			user_input = int(input(high_msg))
+			guess_counter += 1
+	elif guess_counter > 1:
+		user_input = int(input(guess_again_msg))
+		while user_input < 1000:
+			user_input = int(input(low_msg))
+			guess_counter += 1
+		while user_input > 9999:
+			user_input = int(input(high_msg))
+			guess_counter += 1
+
+	user_input_list = list(str(user_input))
+	target_int_list = list(str(target_int))
+	bull_cow_list = []
+
+	guess_counter += 1
+		
+	guess_counter_msg = 'It only took you {} guesses.'.format(guess_counter)
+
+	if user_input == 'exit':
+		break
+
+	elif user_input == target_int:
+		print(you_win)
+		print(guess_counter_msg)
+		break
+
+	elif user_input != target_int:
+		bull_cow_list_gen(4)
+		bull_cow_msg()
+
+
+
+
+
