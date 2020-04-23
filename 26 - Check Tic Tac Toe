@@ -1,0 +1,66 @@
+'''http://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html'''
+
+#board game state: 0 is empty, 1 is player 1, 2 is player 2
+game_cond = [0, 1, 2], [0, 1, 2], [1, 1, 1]
+
+#list of columns translated into rows
+col_list = ([game_cond[0][0], game_cond[1][0], game_cond[2][0]], [game_cond[0][1], game_cond[1][1], game_cond[2][1]], [game_cond[0][2], game_cond[1][2], game_cond[2][2]])
+
+#list of diagnols translated into rows: top left to bottom right, then bottom left to top right
+diag_list = ([game_cond[0][0], game_cond[1][1], game_cond[2][2]], [game_cond[2][0], game_cond[1][1], game_cond[0][2]])
+
+
+'''
+Starting Cond: game board has achieved a winning state
+Ending Cond: Returns True if a winning condition is satisfied and None if a winner is undeclared
+'''
+def main():
+	if row_check(game_cond) == True:
+		return True
+	elif row_check(col_list) == True:
+		return True
+	elif row_check(diag_list) == True:
+		return True
+
+
+
+
+'''
+Starting Cond: game board has achieved a winning state
+Ending Cond: checks each row for a win condition
+'''
+def row_check(win_condition):
+	for x in range(0,len(win_condition)):
+		# print(three_in_a_row(win_condition[x]))
+		if three_in_a_row(win_condition[x]) == True:
+			return True
+
+
+
+
+'''
+Starting Cond: game board has achieved a winning state
+Ending Cond: checks if each row has the same ints and are not equal to zero
+'''
+def three_in_a_row(row):
+	if row[0] == row[1] == row[2] and row[0] != 0:
+		return True
+	else:
+		return False
+
+
+
+
+'''
+Starting Cond: game board has achieved a winning state
+Ending Cond: prints out the board game for visualization purposes
+'''
+def board_visualizer():
+	for x in range(3):
+		print(game_cond[x])
+
+
+
+
+if __name__ == '__main__':
+	main()
