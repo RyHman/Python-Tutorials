@@ -1,0 +1,89 @@
+'''http://www.practicepython.org/exercise/2015/11/26/27-tic-tac-toe-draw.html'''
+
+game_player_turn = 1
+game_condition = [[0,0,0], [0,0,0], [0,0,0]]
+
+def main():
+	game_move_counter = 0
+	while game_move_counter < 9:
+		game_board()
+		user_input_loop()
+		game_move_counter += 1
+		print(game_move_counter)
+	game_board()
+	print('gg easy')
+
+
+'''=============================User Input=============================='''
+'''
+Starting Condition: Value has been entered into the game_condition list
+Ending Condition: Returns an X, O, or blank space depending on value entered
+'''
+def user_input_loop():
+	coord_message = "{}, please enter the coordinates of the spot you want to claim (horizontal,vertical):\n"
+	global game_player_turn
+	if game_player_turn % 2 == 0:
+		user_input = input(coord_message.format('Player 2'))
+	else:
+		user_input = input(coord_message.format('Player 1'))
+	user_choice = user_input.split(',')
+	user_coords = [int(user_choice[0]), int(user_choice[1])]
+	if game_player_turn % 2 == 0:
+		game_condition[user_coords[1] - 1][user_coords[0] - 1] = 2
+	else:
+		game_condition[user_coords[1] - 1][user_coords[0] - 1] = 1
+	game_player_turn += 1
+
+
+'''==============================Board Game=============================='''
+'''
+Starting Condition: None
+Ending Condition: Prints the game board, with user inputs enter.  Player 1 = X, Player 2 = O, and no input is blank
+'''
+def game_board():
+	print(horiz_ticks)
+	print(vert_bound)
+	print('1 ' + row_of_values(0))
+	print(vert_bound)
+	print('2 ' + row_of_values(1))
+	print(vert_bound)
+	print('3 ' + row_of_values(2))
+	print(vert_bound)
+
+'''
+Starting Condition: Value has been entered into the game_condition list
+Ending Condition: Returns an X, O, or blank space depending on value entered
+'''
+def row_of_values(row):
+	value_row = cell_v + cell_vs.format(value_to_display(row,0)) + cell_v + cell_vs.format(value_to_display(row,1)) + cell_v + cell_vs.format(value_to_display(row,2)) + cell_v
+	return value_row
+
+'''
+Starting Condition: Value has been entered into the game_condition list
+Ending Condition: Returns an X, O, or blank space depending on value entered
+'''
+def value_to_display(row, value):
+	if game_condition[row][value] == 0:
+		display = ' '
+		return display
+	elif game_condition[row][value] == 1:
+		display = 'X'
+		return display
+	elif game_condition[row][value] ==2:
+		display = 'O'
+		return display
+
+'''===========Board Building Pieces============'''
+
+cell_v = '|'
+cell_h = '  ---'
+cell_vs = ' {} '
+cell_hs = ' '
+horiz_ticks = '    1   2   3'
+vert_bound = '   --- --- ---'
+
+
+'''===============End==============='''
+
+if __name__ == '__main__':
+	main()
