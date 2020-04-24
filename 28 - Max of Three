@@ -1,0 +1,17 @@
+'''http://www.practicepython.org/exercise/2016/03/27/28-max-of-three.html'''
+
+
+'''
+Starting Condition: user inputs three variables
+Ending Condition: Prints largest variable of x,y,z
+'''
+def greatest(x,y,z):
+	largest_var = 0
+	if x > y:
+		largest_var = largest_var + x
+	else:
+		largest_var = largest_var + y
+	if largest_var > z:
+		print(largest_var)
+	else:
+		print(z)
