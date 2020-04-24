@@ -1,39 +1,13 @@
 '''http://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html'''
 
-#Current Build only works for Square Boards
+user_h = int(input('How many rows would you like your board board to be?\n'))
+user_v = int(input('How many columns would you like your game board to be?\n'))
 
-'''
- --- --- --- 
-|   |   |   | 
- --- --- ---  
-|   |   |   | 
- --- --- ---  
-|   |   |   | 
- --- --- --- 
- '''
-
-#board size
-greeting = 'Welcome to the game board builder.\n'
-numb_vert = 'How many rows would you like your game board to be?\n'
-numb_horiz = 'How many columns would you like your game board to be?\n'
-not_square = 'Sorry, we only have the capabilities to build a square board.\nPlease try again.\n'
+def main():
+	print(game_board(user_h, user_v))
 
 
 
-
-
-print(greeting)
-
-
-user_v = int(input(numb_vert))
-user_h = int(input(numb_horiz))
-
-
-user_input = [user_h, user_v]
-
-#list to track board construction
-board_list = [0,0]
-#			[h, v]
 
 cell_v = '|'
 cell_h = '---'
@@ -41,46 +15,40 @@ cell_vs = '   '
 cell_hs = ' '
 
 
+
+#list to track board construction
+board_list = [0,0]
+#			[h, v]
+
+'''Complete Board Game'''
+def game_board(board_row, board_column):
+	board_start = row(board_row, board_column)
+	game_board = board_start + (user_v - 1) * (board_start) + horiz(board_row)
+	return game_board
+
+
+'''A single Row'''
+def row(board_row, board_column):
+	row_start = horiz(board_row) + '\n' + vert(board_row) + '\n'
+	row = row_start 
+	return row
+
 '''Horizontal Elements'''
-
-
-def horiz():
-	horiz_build = cell_hs
-	for x in range(0,user_input[0]):
-		horiz_build += cell_h
-		horiz_build += cell_hs
-	print(horiz_build)
+def horiz(x):
+	horiz_lattice = cell_hs + cell_h
+	horiz_row = x * horiz_lattice
+	return horiz_row
 
 
 '''Vertical Elements'''
+def vert(x):
+	vert_lattice = cell_vs + cell_v
+	vert_column =cell_v + x * vert_lattice
+	return vert_column
 
 
-def vert():
-	vert_build = cell_v
-	for x in range(0, user_input[1]):
-		vert_build += cell_vs
-		vert_build += cell_v
-	print(vert_build)
+'''===============End==============='''
 
-
-
-'''Board Assembly'''
-
-
-def board_build():
-
-	horiz()
-	
-	while board_list != user_input:
-
-		if board_list[1] < user_input[1]:
-			vert()
-			board_list[1] += 1
-
-		if board_list[0] < user_input[0]:
-			horiz()
-			board_list[0] += 1
-
-
-board_build()
+if __name__ == '__main__':
+	main()
 
