@@ -1,0 +1,209 @@
+'''http://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html'''
+
+player_one_wins = 0
+player_two_wins = 0
+game_player_turn = 1
+game_move_counter = 0
+game_state = 1
+game_condition = [[0,0,0], [0,0,0], [0,0,0]]
+
+def main():
+	game_loop()
+
+
+'''=============================Game Ending Conditions=============================='''
+'''
+Starting Condition: None
+Ending Condition: Game condition ends at 9 turns, when the board is full and no winner can be determined
+'''
+def game_loop():
+	global game_state
+
+	while game_state == 1:
+		game_winner_check()
+		play_again()
+
+'''
+Starting Condition: None
+Ending Condition: Game condition ends at three in a row, printing a winner message, and returning game_state as 0
+'''
+def game_winner_check():
+	global game_move_counter
+	global player_win_counter
+	global player_one_wins
+	global player_two_wins
+
+	current_game = 1
+	win_msg = "Congratulations {}!\nYou're the winner!\n"
+	while current_game == 1:
+		game_board()
+		user_input_loop()
+		game_move_counter += 1
+		game_draw_check()
+		if win_check() == 1:
+			current_game = 0
+			if game_player_turn % 2 == 0:
+				print(win_msg.format("Player 1"))
+				player_one_wins += 1
+			else:
+				print(win_msg.format("Player 2"))
+				player_two_wins += 1
+
+
+
+
+'''
+Starting Condition: None
+Ending Condition: Game condition ends at three in a row, printing a winner message, and returning game_state as 0
+'''
+
+def game_draw_check():
+	global game_move_counter
+	global game_state
+
+	if game_move_counter > 8:
+		print('The match has ended in a draw!\n')
+		game_state = 0
+	return game_state
+
+
+
+'''
+Starting Condition: None
+Ending Condition: Game condition ends at three in a row, printing a winner message, and returning game_state as 0 or 1 depending on user input
+'''
+def play_again():
+	global game_condition
+	global game_move_counter
+	global game_player_turn
+	global game_state
+
+	play_again_msg = "Would you like to play again?\n(Press 'Enter' for yes, or enter 'no' to quit.)\n"
+	user_input = str(input(play_again_msg))
+	game_condition = [[0,0,0], [0,0,0], [0,0,0]]
+	game_player_turn = 1
+	game_move_counter = 0
+	game_state = 1
+	if user_input == 'no':
+		print("Thanks for playing!")
+		game_state = 0
+	return game_state
+
+'''=============================User Input=============================='''
+'''
+Starting Condition: Value has been entered into the game_condition list
+Ending Condition: Returns an X, O, or blank space depending on value entered, and increases the game_player_turn to the next player's turn
+'''
+def user_input_loop():
+	global game_player_turn
+
+	coord_message = "{}, please enter the coordinates of the spot you want to claim (horizontal,vertical):\n"
+	if game_player_turn % 2 == 0:
+		user_input = input(coord_message.format('Player 2'))
+	else:
+		user_input = input(coord_message.format('Player 1'))
+	user_choice = user_input.split(',')
+	user_coords = [int(user_choice[0]), int(user_choice[1])]
+	if game_player_turn % 2 == 0:
+		game_condition[user_coords[1] - 1][user_coords[0] - 1] = 2
+	else:
+		game_condition[user_coords[1] - 1][user_coords[0] - 1] = 1
+	game_player_turn += 1
+
+'''==============================Winning Condition Check=============================='''
+
+
+
+
+'''
+Starting Condition: game board has achieved a winning state
+Ending Condition: checks each line for a winning condition, and returns a 1 for a win
+'''
+def win_check():
+	col_list = [[game_condition[0][0], game_condition[1][0], game_condition[2][0]], [game_condition[0][1], game_condition[1][1], game_condition[2][1]], [game_condition[0][2], game_condition[1][2], game_condition[2][2]]]
+	diag_list = [[game_condition[0][0], game_condition[1][1], game_condition[2][2]], [game_condition[2][0], game_condition[1][1], game_condition[0][2]]]
+	if row_check(game_condition) == 1:
+		return 1
+	elif row_check(col_list) == 1:
+		return 1
+	elif row_check(diag_list) == 1:
+		return 1
+
+
+
+'''
+Starting Condition: game board has achieved a winning state
+Ending Condition: checks each line (row, column, diagnol) for a winning condition, and returns 1 for a win
+'''
+def row_check(win_condition):
+	for x in range(0,len(win_condition)):
+		if three_in_a_row(win_condition[x]) == 1:
+			return 1
+
+
+
+'''
+Starting Condition: game board has achieved a winning state
+Ending Condition: checks if each row has a winning condition (the same ints and are not equal to zero) and returns 1 for a win
+'''
+def three_in_a_row(row):
+	if row[0] == row[1] == row[2] and row[0] != 0:
+		return 1
+	else:
+		return 0
+
+
+'''==============================Board Game=============================='''
+'''
+Starting Condition: None
+Ending Condition: Prints the game board, with user inputs enter.  Player 1 = X, Player 2 = O, and no input is blank
+'''
+def game_board():
+	print(horiz_ticks)
+	print(vert_bound)
+	print('1 ' + row_of_values(0))
+	print(vert_bound)
+	print('2 ' + row_of_values(1))
+	print(vert_bound)
+	print('3 ' + row_of_values(2))
+	print(vert_bound)
+
+
+
+'''
+Starting Condition: Value has been entered into the game_condition list
+Ending Condition: Returns an X, O, or blank space depending on value entered
+'''
+def row_of_values(row):
+	value_row = cell_v + cell_vs.format(value_to_display(row,0)) + cell_v + cell_vs.format(value_to_display(row,1)) + cell_v + cell_vs.format(value_to_display(row,2)) + cell_v
+	return value_row
+
+'''
+Starting Condition: Value has been entered into the game_condition list
+Ending Condition: Returns an X, O, or blank space depending on value entered
+'''
+def value_to_display(row, value):
+	if game_condition[row][value] == 0:
+		display = ' '
+		return display
+	elif game_condition[row][value] == 1:
+		display = 'X'
+		return display
+	elif game_condition[row][value] ==2:
+		display = 'O'
+		return display
+
+'''=============================Board Building Pieces============================='''
+
+cell_v = '|'
+cell_h = '  ---'
+cell_vs = ' {} '
+cell_hs = ' '
+horiz_ticks = '    1   2   3'
+vert_bound = '   --- --- ---'
+
+
+'''===============End==============='''
+
+if __name__ == '__main__':
+	main()
