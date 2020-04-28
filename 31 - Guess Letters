@@ -1,0 +1,93 @@
+'''http://www.practicepython.org/exercise/2017/01/02/31-guess-letters.html'''
+play = True
+def main():
+	intro()
+	while play == True:
+		guess_check(user_guess())
+		win_check(board_status())
+
+secret_word = 'evaporate'.upper()
+
+guess_list = list(secret_word)
+blank_space = '___'
+user_guess_list = []
+
+
+
+# reveal_list = [empty_space if x!=user_guess else user_guess for x in test_list]
+
+'''====================Game Logic===================='''
+def win_check(reveal_list):
+	global play
+	win_msg = "You've guessed all the letters in the secret word!\nCongratulations!"
+	if reveal_list == guess_list:
+		play = False
+		print(win_msg)
+		return play
+
+
+
+'''
+Starting Condition: User has entered input
+Ending Condition: Updates user_guess_list if user_input is in word_list, else prints guess again msg
+'''
+def guess_check(user_input):
+	global user_guess_list
+	correct_msg = "Correct! Good guess!\n"
+	guess_again_msg = "Sorry, that letter isn't in the secret word.\n"
+	already_guessed_msg = "You've already selected that letter before.\nMake another selection:\n"
+	if user_input in guess_list:
+		if user_input in user_guess_list:
+			print(already_guessed_msg)
+		elif user_input not in user_guess_list:
+			user_guess_list.append(user_input)
+			print(correct_msg)
+	elif user_input not in guess_list:
+		print(guess_again_msg)
+
+
+
+'''
+Starting Condition: User is in the game loop
+Ending Condition: Prints reveal_list to screen. If 
+'''
+def board_status():
+	reveal_list = []
+	for x in guess_list:
+		if x in user_guess_list:
+			reveal_list.append(x)
+		else:
+			reveal_list.append(blank_space)
+	print(*reveal_list, sep='   ')
+	return reveal_list
+
+
+
+'''
+Starting Condition: User is in the game loop
+Ending Condition: returns user_input as a string
+'''
+def user_guess():
+	guess_msg = "Please enter a letter.\n"
+	user_input = str(input(guess_msg))
+	return user_input
+
+
+
+'''====================Intro Messages===================='''
+'''
+Staring Condition: None
+Ending Condition: Prints greeting message to the screen
+'''
+def intro():
+	intro_msg = "Welcome to Hangman!\nTry and guess which word I've selected.  Be carefule, after 6 guesses, you'll lose!\n"
+	print()
+	print(intro_msg)
+	print()
+	board_status()
+
+
+
+'''====================Intro Messages===================='''
+if __name__ == '__main__':
+	main()
