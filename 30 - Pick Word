@@ -1,0 +1,26 @@
+'''http://www.practicepython.org/exercise/2016/09/24/30-pick-word.html'''
+import random
+
+
+def main():
+	print(word_bank('sowpods.txt'))
+
+
+
+'''====================Get List===================='''
+
+'''
+Starting Condition: None
+Ending Condition: Returns a word from filetype specified by user
+'''
+
+def word_bank(file_name):
+	with open(file_name, 'r') as f:
+		lines = f.readlines()
+		word = lines[random.randint(1,len(lines))].strip()
+		return word
+
+
+
+if __name__ == '__main__':
+	main()
