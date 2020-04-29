@@ -1,0 +1,170 @@
+'''http://www.practicepython.org/exercise/2017/01/10/32-hangman.html'''
+
+import random
+
+
+
+
+'''====================Main===================='''
+'''
+Starting Condition: Play = True
+Ending Condition: Play = False
+'''
+def main():
+	intro()
+	while play == True:
+		guess_check(user_guess())
+		win_check(board_status())
+
+
+
+
+
+'''====================Game Logic===================='''
+'''
+Starting Condition: In game loop
+Ending Condition: If user guesses entire word, returns play = False
+'''
+def win_check(reveal_list):
+	global num_guesses
+	global play
+	lose_msg = "Sorry, you ran out of guesses!\nThe secret word was: {}"
+	win_msg = "You've guessed all the letters in the secret word!\nCongratulations!\nThe correct word was {}!"
+	guess_msg = "You have {} guesses remaining."
+	if reveal_list == guess_list:
+		play = False
+		print(win_msg.format(secret_word))
+		return play
+	elif num_guesses == 6:
+		play = False
+		hang_man_graphic(num_guesses)
+		print()
+		print(lose_msg.format(secret_word))
+		return play
+	hang_man_graphic(num_guesses)
+	print()
+	print()
+	print(*reveal_list, sep='   ')
+
+
+'''
+Starting Condition: User has entered input
+Ending Condition: Updates user_guess_list if user_input is in word_list, else prints guess again msg
+'''
+def guess_check(user_input):
+	global user_guess_list
+	global num_guesses
+	correct_msg = "Correct! Great guess!\n"
+	guess_again_msg = "Sorry, that letter isn't in the secret word.\n"
+	already_guessed_msg = "You've already selected that letter before.\nMake another selection:\n"
+	if user_input in guess_list:
+		if user_input in user_guess_list:
+			print()
+			print()
+			print()
+			print(already_guessed_msg)
+		elif user_input not in user_guess_list:
+			user_guess_list.append(user_input)
+			print()
+			print()
+			print()
+			print(correct_msg)
+	elif user_input not in guess_list:
+		num_guesses += 1
+		print()
+		print()
+		print()
+		print(guess_again_msg)
+
+
+
+'''
+Starting Condition: User is in the game loop
+Ending Condition: Prints reveal_list to screen. If 
+'''
+def board_status():
+	reveal_list = []
+	for x in guess_list:
+		if x in user_guess_list:
+			reveal_list.append(x)
+		else:
+			reveal_list.append(blank_space)
+	return reveal_list
+
+
+
+'''
+Starting Condition: User is in the game loop
+Ending Condition: returns user_input as a string
+'''
+def user_guess():
+	guess_msg = "Please enter a letter.\n"
+	user_input = str(input(guess_msg))
+	return user_input
+
+'''====================Get Word===================='''
+
+'''
+Starting Condition: None
+Ending Condition: Returns a word from filetype specified by user
+'''
+
+def get_word(file_name):
+	with open(file_name, 'r') as f:
+		lines = f.readlines()
+		secret_word = lines[random.randint(1,len(lines))].strip()
+		return secret_word
+
+'''====================Messages===================='''
+'''
+Starting Condition: None
+Ending Condition: Prints greeting message to the screen
+'''
+def intro():
+	intro_msg = "Welcome to Hangman!\nTry and guess which word I've selected.  Be carefule, after 6 guesses, you'll lose!\n"
+	print()
+	print(intro_msg)
+	print()
+	hang_man_graphic(num_guesses)
+	print()
+	print(*board_status(), sep=" ")
+
+
+
+'''
+Starting Condition: Guess counter at X
+Ending Condition: Prints graphic X
+'''
+def hang_man_graphic(num_guesses):
+	print(graphic_list[num_guesses])
+
+
+'''====================Hangman Pieces===================='''
+
+
+head = "        ___________\n       |           |\n       |           __\n       |         /    \ \n       |        | o  0 |\n       |         \_==_/\n       |\n       |\n       |\n       |\n       |\n       |\n       |\n       |\n       |\n  -------------------------------"
+
+body = "\n        ___________\n       |           |\n       |           __\n       |         /    \ \n       |        | o  0 |\n       |         \_==_/\n       |           |\n       |           |\n       |           |\n       |           |\n       |\n       |\n       |\n       |\n       |\n  -------------------------------"
+
+one_arm = "\n        ___________\n       |           |\n       |           __\n       |         /    \ \n       |    \   | o  0 |\n       |     \   \_==_/\n       |      \___ |\n       |           |\n       |           |\n       |           |\n       |\n       |\n       |\n       |\n       |\n  -------------------------------"
+
+two_arm = "\n        ___________\n       |           |\n       |           __\n       |         /    \ \n       |    \   | o  0 |  /\n       |     \   \_==_/  /\n       |      \____|____/\n       |           |\n       |           |\n       |           |\n       |\n       |\n       |\n       |\n       |\n  -------------------------------"
+
+one_leg = "\n        ___________\n       |           |\n       |           __\n       |         /    \ \n       |    \   | o  0 |  /\n       |     \   \_==_/  /\n       |      \____|____/\n       |           |\n       |           |\n       |           |\n       |          /\n       |         /\n       |        /\n       |       /\n       |\n  -------------------------------"
+
+dead = "\n        ___________\n       |           |\n       |           __\n       |         /    \ \n       |    \   | x  X |  /\n       |     \   \_==_/  /\n       |      \____|____/\n       |           |\n       |           |\n       |           |\n       |          / \ \n       |         /   \ \n       |        /     \ \n       |       /       \ \n       |\n  -------------------------------"
+
+noose = "        ______________\n       |              |\n       |             /-\ \n       |            |   |\n       |             \_/\n       |\n       |\n       |\n       |\n       |\n       |\n       |\n       |\n       |\n       |\n  -------------------------------"
+graphic_list = [noose, head, body, one_arm, two_arm, one_leg, dead]
+
+
+'''====================End===================='''
+if __name__ == '__main__':
+	secret_word = get_word("sowpods.txt")
+	guess_list = list(secret_word)
+	blank_space = '___'
+	user_guess_list = []
+	num_guesses = 0
+
+	play = True
+	main()
